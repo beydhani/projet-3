@@ -37,22 +37,15 @@ class UserForm {
                 var canvas = document.getElementById('canvas-popup');
                 canvas.style.display = 'flex';
                 map.style.pointerEvents = 'none';
-                map.style.opacity = '0.2';
+                map.style.opacity = '0.8';
                 form.style.pointerEvents = 'none';
-                form.style.opacity = '0.2';
+                form.style.opacity = '0.8';
             }
         });
-        //Pareil pour le bouton de confirmation du canvas. J'ai mis cette instruction ici car elle appelle la méthode displayUserInfo qui est une méthode de cette classe.
+        //Pareil pour le bouton de confirmation du canvas. 
+        //J'ai mis cette instruction ici car elle appelle la méthode displayUserInfo qui est une méthode de cette classe.
         this.confirmationButton.addEventListener("click", (e) => {
             var canvas = document.getElementById('canvas-popup');
-            // var popupDisplay = document.getElementById('user-info');
-            var formDisplay = document.getElementById('reservation');
-            var mapDisplay = document.getElementById('map');
-            // popupDisplay.style.display = 'flex';
-            formDisplay.style.display = 'none';
-            mapDisplay.style.width = '0';
-            mapDisplay.style.height ='0';
-            mapDisplay.style.padding = '0 0'; 
             canvas.style.display = 'none';
             this.displayUserInfo();
         });

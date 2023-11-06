@@ -104,15 +104,20 @@ class MapApp {
     // Méthode statique pour afficher les infos dans le formulaire et la div d'infos et faire apparaitre le formulaire
         // J'utilise parse pour reconvertir mon sting en objet et pouvoir l'utiliser
         const station = JSON.parse(buttonElement.getAttribute('data-station'));
+        //Je stocke les données dans sessionStorage 
+        sessionStorage.setItem('nomStation', station.name);
+        sessionStorage.setItem('adresseStation', station.address);
+        sessionStorage.setItem('nbVelosDispo', station.totalStands.availabilities.bikes);
+        sessionStorage.setItem('nbPlacesDispo', station.totalStands.availabilities.stands);
         //Je remplis les différents éléments avec les propriétés qui m'intéressent
-        document.getElementById("nom_station").textContent = station.name;
-        document.getElementById("nom_station2").textContent = station.name;
-        document.getElementById("adresse_station").textContent = station.address;
-        document.getElementById("adresse_station2").textContent = station.address;
-        document.getElementById("nb_velos_dispo").textContent = station.totalStands.availabilities.bikes;
-        document.getElementById("nb_velos_dispo2").textContent = station.totalStands.availabilities.bikes;
-        document.getElementById("nb_places_dispo").textContent = station.totalStands.availabilities.stands;
-        document.getElementById("nb_places_dispo2").textContent = station.totalStands.availabilities.stands;
+        document.getElementById("nom_station").textContent = sessionStorage.getItem('nomStation');
+        document.getElementById("nom_station2").textContent = sessionStorage.getItem('nomStation');
+        document.getElementById("adresse_station").textContent = sessionStorage.getItem('adresseStation');
+        document.getElementById("adresse_station2").textContent = sessionStorage.getItem('adresseStation');
+        document.getElementById("nb_velos_dispo").textContent = sessionStorage.getItem('nbVelosDispo');
+        document.getElementById("nb_velos_dispo2").textContent = sessionStorage.getItem('nbVelosDispo');
+        document.getElementById("nb_places_dispo").textContent = sessionStorage.getItem('nbPlacesDispo');
+        document.getElementById("nb_places_dispo2").textContent = sessionStorage.getItem('nbPlacesDispo');
         //Pour afficher le formulaire et cacher le message par défaut
         var form = document.getElementById('reservation-form');
         var messageSelect = document.getElementById('message-select');

@@ -121,12 +121,12 @@ body {
     flex-direction: row;
     margin: 10px;
     position: relative;
-    height: 500px;
+/*    height: 500px;*/
 }
 /*CSS de la map*/
 #map {
     width: 50%;
-    height: auto;
+    height: 570px;
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     border-radius: 15px;
@@ -181,8 +181,10 @@ div#div_popup_custom p {
     border-radius: 15px;
     display: none;
     flex-direction: column;
-    font-size: 3vh;
+/*    font-size: 3vh;*/
     align-items: center;
+    height: 600px;
+    max-height: 600px;
     width: 85%;
     padding: 1px;
     opacity: 1;
@@ -190,7 +192,7 @@ div#div_popup_custom p {
 /*CSS des instructions de séléction*/
 #message-select {
     background-color: white;
-    padding: 20px;
+/*    padding: 20px;*/
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     border-radius: 15px;
     display: flex;
@@ -198,8 +200,8 @@ div#div_popup_custom p {
     font-size: 3vh;
     align-items: center;
     width: 85%;
-    height: 787px;
-    padding: 5%;
+    height: 600px;
+/*    padding: 5%;*/
     opacity: 1;
     justify-content: center;
 
@@ -465,7 +467,7 @@ button#annulation-canvas:active {
         border-radius: 15px;
         display: none;
         flex-direction: column;
-        font-size: 3vh;
+        font-size: 1em;
         align-items: center;
         width: 100%;
         padding: 1px;
@@ -489,9 +491,9 @@ button#annulation-canvas:active {
         border-radius: 15px;
     }
     .user-info {
-        position: absolute;
+/*        position: absolute;*/
         text-align: center;
-        display: none;
+        display: flex;
         margin: 20px 0;
         padding: 20px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -502,7 +504,7 @@ button#annulation-canvas:active {
         margin-top: 10px;
         margin-bottom: 10px;
         flex-direction: column;
-         top: 17%; 
+/*         top: 17%; */
 
     }
 }
