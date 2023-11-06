@@ -422,7 +422,7 @@ button#annulation-canvas:active {
         flex-direction: column;
         margin: 10px;
         position: relative;
-        height: 500px;
+/*        height: 500px;*/
     }
     #map {
         width: 0;
