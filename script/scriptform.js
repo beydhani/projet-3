@@ -45,10 +45,10 @@ class UserForm {
         //Pareil pour le bouton de confirmation du canvas. J'ai mis cette instruction ici car elle appelle la méthode displayUserInfo qui est une méthode de cette classe.
         this.confirmationButton.addEventListener("click", (e) => {
             var canvas = document.getElementById('canvas-popup');
-            var popupDisplay = document.getElementById('user-info');
+            // var popupDisplay = document.getElementById('user-info');
             var formDisplay = document.getElementById('reservation');
             var mapDisplay = document.getElementById('map');
-            popupDisplay.style.display = 'flex';
+            // popupDisplay.style.display = 'flex';
             formDisplay.style.display = 'none';
             mapDisplay.style.width = '0';
             mapDisplay.style.height ='0';

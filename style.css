@@ -353,7 +353,7 @@ button#annulation-canvas:active {
 .user-info {
 /*    position: absolute;*/
     text-align: center;
-    display: none;
+    display: flex;
     margin: 20px 0;
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -365,7 +365,7 @@ button#annulation-canvas:active {
     margin-top: 10px;
     flex-direction: column;
     /* right: 22%; */
-     top: 22%; 
+/*     top: 22%; */
     /* transform: translate(0%,30%); */
 /*    top: 50%;*/
 /*    left: 50%;*/
