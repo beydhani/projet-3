@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Feuilles de styles, la mienne et celle pour leaflet -->
+	<link rel="stylesheet" type="text/css" href="style.css"> 
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+	<!-- Les scripts pour inclure la bibliothèque leaflet et le regroupement des icones en cluster-->
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+	<!-- Titre et icone de la page -->
+	<link rel="icon" type="image/png" href="img/nantes.png">
+	<title>Nantes à vélo</title>
+</head>
+<body>
+	<!-- Div de présentation -->
+	<div id="presentation" class="rounded">
+	    <h1>Nantes à vélo</h1>
+	    <hr> <!-- Ceci est l'interligne -->
+	    <h2>Votre plateforme de réservation de vélo</h2>
+	    <p>
+	       Bienvenue sur la plateforme de réservation de vélo de la ville de Nantes. Soyez plus écolo, prenez le vélo ! Cette plateforme vous permet en quelques clics de réserver un vélo à une des nombreuses stations qui parsèment notre jolie ville. Pour plus d'explications, visionnez le diaporama intarctif ci-dessous
+	    </p>
+	</div>
+	<div id="diaporama"  class="rounded">
+		<!-- Div du diaporama géré par scriptdiapo.js -->
+		<!-- Diapositives -->
+		<div class="slide">
+			<img src="img/image1.jpg" alt="Image 1 du diapo">
+			
+		</div>
+		<div class="slide">
+			<img src="img/image2.jpg" alt="Image 2 du diapo">
+			
+		</div>	
+		<div class="slide">
+			<img src="img/image3.jpg" alt="Image 3 du diapo">
+			
+		</div>	
+		<div class="slide">
+			<img src="img/image4.jpg" alt="Image 4 du diapo">
+			
+		</div>	
+		<!-- Bouttons -->
+		<button id="btn-prev" class="btn-diapo" onclick="diaporama.prevSlide()">&#10094;</button> 
+		<button id="btn-next" class="btn-diapo" onclick="diaporama.nextSlide()">&#10095;</button>
+		<button class="btn-play-pause btn-diapo"  onclick="diaporama.playPause()">
+			<span class="btn-play ">&#9654;</span>
+			<span class="btn-pause ">&#10074;&#10074;</span>
+		</button>
+	</div>
+	<div id="container">
+		<!-- Div qui va contenir le reste de l'application -->
+ 		<div id="canvas-popup"> 
+ 			<!-- Le canvas, géré par scriptcanva.js Apparait quand on Réserve à l'aide du formulaire-->
+		    <span>Veuillez signer pour confirmer </span>
+		    <label>Signature :</label> 
+		    <canvas id="signature-canvas" width="300" height="150"></canvas>
+		    <button id="confirmation-canvas">Confirmer</button>
+		    <button id="annulation-canvas">Annuler</button>
+		</div> 
+
+		<div id="map">
+			<!-- La div de la map, gérée par scriptmap.js -->
+		</div>
+		<div id="reservation"> 
+			<!-- Cette div va contenir le message par défaut et le formulaire. Gérée par scriptform.js et scriptmap.js -->
+			<div id="message-select" >
+				<!-- Message par défaut qui va disparaitre quand on sélectionne une station sur la map -->
+				<span class="message-select-txt">
+					Veuillez séléctionner une station disponible sur la carte.
+				</span>
+			</div>
+		    <form id="reservation-form" > 
+		    	<!-- Formulaire qui va apparaître quand on séléctionne une station sur la map -->
+		        <h2>Réservation de Vélo</h2>
+		        <div id="container_infos_station">
+		            <span> Nom de la station : <span id="nom_station"> </span></span> <br>
+		            <span> Adresse : <span id="adresse_station"> </span></span> <br>
+		            <span>Nombre de vélos disponibles : <span id="nb_velos_dispo"> </span></span><br>
+		            <span> Nombre de docks disponibles : <span id="nb_places_dispo"></span> </span> <br>
+		        </div>
+		        <span id="instructions_formulaire">Veuillez renseignez les champs si dessous avant de pouvoir réserver. N'écrivez que des lettres.</span>
+		        <div> <!-- Élément de conteneur -->
+		            <label for="nom">Nom :</label>
+		            <input type="text" id="nom" name="nom" required> 
+		        </div>
+		        <div> <!-- Élément de conteneur -->
+		            <label for="prenom">Prénom :</label> 
+		            <input type="text" id="prenom" name="prenom" required> 
+		        </div>
+
+		        <button id="submit-button" class="btn-formulaire" >Réserver</button> 
+		    </form>
+		</div>
+		<div id="user-info" class="user-info">
+			<!-- Cette div va contenir les infos de la station en plus des infos de l'utilisateur et du timer géré par scripttimer.js -->
+			<div id="container_infos_station2">
+			    <span> Nom de la station : <span id="nom_station2"> </span></span> <br>
+			    <span> Adresse : <span id="adresse_station2"> </span></span> <br>
+			    <span>Nombre de vélos disponibles : <span id="nb_velos_dispo2"> </span></span><br>
+			    <span> Nombre de docks disponibles : <span id="nb_places_dispo2"></span> </span> <br>
+			</div>
+	    	<p>Nom: <span id="nom-display" class="user-info-data"></span></p> 
+	    	<p>Prénom: <span id="prenom-display" class="user-info-data"></span></p> 
+	    	<p>Temps restant: <span id="timer-display" class="user-info-data">20:00</span></p> 
+	    	<button id="bouton_annuler" class="style_bouton">Annuler la réservation</button>
+		</div>
+	</div>
+<!-- Les différents scripts de l'application. -->
+	<script src="script/scriptdiapo.js"></script>
+	<script src="script/scriptmap.js"></script>
+	<script src="script/scriptform.js"></script> 
+	<script src="script/scriptcanva.js"></script>
+	<script src="script/scripttimer.js"></script> 
+	
+</body>
+</html>

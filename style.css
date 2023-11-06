@@ -1,0 +1,507 @@
+/*CSS général */
+img {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+body {
+/*    background-color: #5c95ad;*/
+    background-image: url('img/bikes.png');
+    background-size: 150px 150px;
+    background-repeat: repeat;
+    font-family: 'Arial', sans-serif;
+    max-width: 1024px;
+    margin: auto;
+} 
+.rounded {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: relative;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+/* CSS de la présentation*/
+#presentation{
+    background-color: white;
+    width: 80%;
+    display: flex;
+    margin-top: 15px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+} 
+#presentation h1 {
+    font-size: 8em;
+    color: #E47E66;
+    margin: 0;
+}
+#presentation hr {
+    width: 25%;
+    border: 1px solid black;
+}
+#presentation h2 {
+    color: #5c95ad;
+    margin: 0.5em;
+}
+#presentation p {
+    font-size: 1.4em;
+    max-width: 90%;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+/*CSS du diaporama*/
+#diaporama { 
+    background-color: #E47E66;
+    width: 97%;
+
+}
+.slide {
+    display: none;
+    text-align: center;
+    background-color: #E47E66;
+}
+.slide p {
+    color: white;
+    font-size: 20px;
+}
+.slide img {
+    width: 100%;
+    height: auto;
+}
+/*CSS des boutons*/
+.btn-diapo {
+    position: absolute;
+    top:50%;
+    transform: translate(0,-50%);
+    border: none;
+    width: 58px; 
+    height: 58px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    visibility: hidden;
+    transition: box-shadow 0.3s ease;
+    color: #fff;
+    background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+    font-size: 24px;
+}
+#diaporama:hover .btn-diapo {
+    visibility: visible;
+}
+#btn-prev {
+    left: 0%;
+    border-top-right-radius: 50%; 
+    border-bottom-right-radius: 50%;
+
+
+}
+#btn-next {
+    right:0%;
+    border-top-left-radius:50% ;
+    border-bottom-left-radius: 50% ;
+}
+.btn-play-pause {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%; 
+}
+.btn-pause {
+    display: inline-block;
+}
+.btn-play {
+    display: none;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+/*CSS du container de la map et du formulaire*/
+#container {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    position: relative;
+    height: 500px;
+}
+/*CSS de la map*/
+#map {
+    width: 50%;
+    height: auto;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+}
+
+/*CSS des icones de la map*/
+.custom-cluster-icon {
+	background:linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+}
+div#div_popup_custom {
+    display: flex;
+    flex-direction: column;
+}
+div#div_popup_custom p {
+     margin: 5px 0; 
+}
+.btn-select {
+	background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+	color: #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+	border-radius: 10px;
+	transition: box-shadow 0.3s ease;
+	border: none;
+	font-size: 18px;
+}
+.btn-select:hover {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+	
+}
+.btn-select:active {
+	background: linear-gradient(180deg, #4B91F7 0%, #3C698C 100%);
+}
+
+/*CSS du container du formulaire de réservation*/
+#reservation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    max-height: 100%;
+}
+/*CSS du formulaire de réservation*/
+#reservation-form {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    font-size: 3vh;
+    align-items: center;
+    width: 85%;
+    padding: 1px;
+    opacity: 1;
+}
+/*CSS des instructions de séléction*/
+#message-select {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    font-size: 3vh;
+    align-items: center;
+    width: 85%;
+    height: 787px;
+    padding: 5%;
+    opacity: 1;
+    justify-content: center;
+
+}
+span.message-select-txt {
+    text-align: center;
+    font-size: 48px;
+}
+/*CSS du titre du formulaire*/
+#reservation-form h2 {
+    color: #FF575F;
+}
+/*CSS des instructions*/
+#instructions_formulaire {
+    text-align: center;
+}
+/*CSS infos station*/
+#container_infos_station {
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+}
+#container_infos_station2 {
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+}
+/*CSS labels formulaire*/
+#reservation-form label {
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+}
+/*CSS input formulaire*/
+input[type="text"] {
+    padding: 10px;
+    border: 2px solid #0084FF;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/*CSS bouton formulaire*/
+button#submit-button:disabled {
+    background-color: darkgrey;
+    cursor: not-allowed;
+}
+button#submit-button:active {
+    background: linear-gradient(180deg, #4B91F7 0%, #3C698C 100%);
+}
+button#submit-button {
+    width: 50%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+.btn-formulaire {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+    background-origin: border-box;
+    box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    cursor: pointer;
+}
+
+
+/*CSS du popup canvas*/
+div#canvas-popup {
+	background-color: white;
+    display: none;
+    z-index: 1;
+    flex-direction: column;
+    padding: 10px;
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+}
+#signature-canvas {
+    width: 300px;
+    height: 150px;
+    border: 1px solid #000;
+    margin: 10px 0;
+}
+#confirmation-canvas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+    background-origin: border-box;
+    box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    cursor: pointer;
+}
+button#confirmation-canvas:active {
+    background: linear-gradient(180deg, #4B91F7 0%, #3C698C 100%);
+}
+button#confirmation-canvas:disabled {
+    background-color: darkgrey;
+    cursor: not-allowed;
+}
+#annulation-canvas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 19px;
+    margin: 5px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+    background-origin: border-box;
+    box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    cursor: pointer;
+}
+button#annulation-canvas:active {
+    background: linear-gradient(180deg, #4B91F7 0%, #3C698C 100%);
+}
+
+/*CSS de la div user-info*/
+.user-info {
+/*    position: absolute;*/
+    text-align: center;
+    display: none;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    background-color: white;
+    width: 50%;
+    height: auto;
+    margin: auto;
+    margin-top: 10px;
+    flex-direction: column;
+    /* right: 22%; */
+     top: 22%; 
+    /* transform: translate(0%,30%); */
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%,-50%);*/
+}
+
+.user-info p {
+    margin: 10px 0; 
+}
+
+.user-info-data {
+    font-weight: bold;
+    color: #007BFF; 
+}
+#bouton_annuler {
+    background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    padding: 14px;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+    border: none;
+    font-size: 18px;
+}
+
+
+/*Responsive*/
+@media (max-width: 768px) {
+    #presentation {
+        width: 97%;
+        margin-top: 10px;
+    }
+    #presentation h1 {
+        font-size: 4em;
+    }
+    #presentation p {
+        font-size: 1em;
+        max-width: 90%;
+    }
+    #diaporama {
+        width: 97%;
+    }
+    .slide p {
+        font-size: 10px;
+    }
+    .btn-diapo {
+        width: 34px;
+        height: 34px;
+        font-size: 12px;
+    }
+    #container {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        position: relative;
+        height: 500px;
+    }
+    #map {
+        width: 0;
+        height: 0;
+        padding: 50% 50%;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 15px;
+    }
+    #reservation {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 10px;
+        max-height: 100%;
+    }
+    #message-select {
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        font-size: 3vh;
+        /* align-items: center; */
+        width: 85%;
+        height: 100%;
+        padding: 1px;
+        opacity: 1;
+        justify-content: center;
+    }
+    span.message-select-txt {
+        text-align: center;
+        font-size: 24px;
+    }
+    #reservation-form {
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 15px;
+        display: none;
+        flex-direction: column;
+        font-size: 3vh;
+        align-items: center;
+        width: 100%;
+        padding: 1px;
+        opacity: 1;
+    }
+    div#canvas-popup {
+        background-color: white;
+        display: none;
+        z-index: 1;
+        flex-direction: column;
+        padding: 0;
+        width: 306px;
+        height: 300px;
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        align-items: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 15px;
+    }
+    .user-info {
+        position: absolute;
+        text-align: center;
+        display: none;
+        margin: 20px 0;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 15px;
+        background-color: white;
+        width: 80%;
+        margin: auto;
+        margin-top: 10px;
+        flex-direction: column;
+         top: 17%; 
+
+    }
+}
