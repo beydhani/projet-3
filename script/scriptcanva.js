@@ -17,6 +17,10 @@ class DrawingCanvas {
         this.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
         // Ajoute un EventListener pour le mouvement de la souris (mousemove)
         this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
+        // Ajoute des EventListener pour le toucher 
+        this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
+        this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
+        this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
 
         //On utilise les propriétés de l'API Canvas pour définir les propriétés du trait.
         // Epaisseur du trait
@@ -50,11 +54,25 @@ class DrawingCanvas {
         this.drawing = true;
     }
 
+    // Méthode pour gérer le début du toucher
+    handleTouchStart(e) {
+        e.preventDefault(); // Prévient le comportement par défaut du navigateur
+        this.drawing = true;
+        // Obtient la position de toucher et commence le dessin
+        const touch = e.touches[0];
+        this.ctx.moveTo(touch.clientX - this.canvas.getBoundingClientRect().left, touch.clientY - this.canvas.getBoundingClientRect().top);
+    }
+
     // Méthode appelée lorsqu'un bouton de la souris est relâché
     handleMouseUp() {
         this.drawing = false;
         // Commencer un nouveau chemin de dessin
         this.ctx.beginPath();        
+    }
+    // Méthode pour gérer la fin du toucher
+    handleTouchEnd() {
+        this.drawing = false;
+        this.ctx.beginPath(); // Commence un nouveau chemin
     }
 
     // Méthode appelée lorsqu'il y a un mouvement de la souris
@@ -72,6 +90,18 @@ class DrawingCanvas {
         this.confirmationDrawing ++;
         this.toggleConfirmButton();
         
+    }
+    // Méthode pour gérer le mouvement du toucher
+    handleTouchMove(e) {
+        if (!this.drawing) return;
+        e.preventDefault(); // Prévient le comportement de scroll par défaut
+        const touch = e.touches[0];
+        this.ctx.lineTo(touch.clientX - this.canvas.getBoundingClientRect().left, touch.clientY - this.canvas.getBoundingClientRect().top);
+        this.ctx.stroke();
+        this.ctx.moveTo(touch.clientX - this.canvas.getBoundingClientRect().left, touch.clientY - this.canvas.getBoundingClientRect().top);
+
+        this.confirmationDrawing++;
+        this.toggleConfirmButton();
     }
     //La méthode pour activer le bouton de confirmation
     toggleConfirmButton() {
