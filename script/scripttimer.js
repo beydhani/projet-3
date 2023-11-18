@@ -6,6 +6,7 @@ class Timer {
         //Ainsi que le bouton du canvas
         this.button = document.getElementById('confirmation-canvas'); 
         this.totalTime = 1200; // 20 minutes en secondes
+        this.display.textContent = this.formatTime(); //On affiche le Timer 
         this.timerInterval = null; // On itialise l'intervalle du chronomètre à null
 
         // On met un Event Listener pour lancer la méthode start au clique sur le bouton
