@@ -21,7 +21,25 @@ class UserForm {
         if (storedPrenom) {
             this.prenomInput.value = storedPrenom;
         }
-        //Je vérifie si le bouton est cliquable avec checkButtonState()
+        //J'utilise cette ligne pour conserver l'état du bouton de confirmation même après avoir rechargé la page
+        this.confirmationButtonClicked = sessionStorage.getItem('confirmationButtonClicked') === 'true';
+        // Si j'ai un nom et un prénom dans mon Local Storage et que le bouton de confirmation est cliqué je les affiche 
+        if (localStorage.getItem("nom") && localStorage.getItem("prenom") && this.confirmationButtonClicked) {
+            this.displayUserInfo();
+        }
+        // Ici je déclare des variables pour manipuler mon css.
+        var form = document.getElementById('reservation-form');
+        var map = document.getElementById('map');
+        var canvas = document.getElementById('canvas-popup');
+        // S'il y a des infos dans mes champs d'infos vélo et que le bouton de confirmation a été cliqué.
+        if (sessionStorage.getItem('nomStation') && this.confirmationButtonClicked) {
+            map.style.pointerEvents = 'none'; //On peut plus cliquer sur la map
+            map.style.opacity = '0.8'; //Elle a une opacité moindre
+            form.style.pointerEvents = 'none'; //On ne peut plus cliquer sur le formulaire
+            form.style.opacity = '0.8'; // Il a une opacité moindre
+            
+        }
+        //Je vérifie si le bouton de reservation est cliquable avec checkButtonState()
         this.checkButtonState();
         //J'ajoute un eventListener pour appeler checkButtonState() quand il y a un input dans mes champs d'input
         this.nomInput.addEventListener("input", () => this.checkButtonState());
@@ -30,11 +48,11 @@ class UserForm {
         this.submitButton.addEventListener("click", (e) => {
             //j'utilise preventDefault() pour empêcher le comportement par défaut du bouton de soumission du formulaire.
             e.preventDefault();
-            //Si le bouton est cliquable, on fait les modifications.
-            if (this.isButtonClickable) {
-                var form = document.getElementById('reservation-form');
-                var map = document.getElementById('map');
-                var canvas = document.getElementById('canvas-popup');
+            
+            //Si le bouton de réservation est cliquable, on fait les modifications css.
+            // On ajoute aussi la condition que les informations de stations soient disponibles pour éviter qu'un utilisateur manipule 
+            // Le CSS pour faire une réservation vide. 
+            if (this.isButtonClickable && sessionStorage.getItem('nomStation')) {
                 canvas.style.display = 'flex';
                 map.style.pointerEvents = 'none';
                 map.style.opacity = '0.8';
@@ -42,11 +60,11 @@ class UserForm {
                 form.style.opacity = '0.8';
             }
         });
-        //Pareil pour le bouton de confirmation du canvas. 
-        //J'ai mis cette instruction ici car elle appelle la méthode displayUserInfo qui est une méthode de cette classe.
+        //Pareil pour le bouton de confirmation du canvas. S'il est cliqué je cache le canvas et 
+        // je met confirmationButtonClicked = true avec sessionStorage
         this.confirmationButton.addEventListener("click", (e) => {
-            var canvas = document.getElementById('canvas-popup');
             canvas.style.display = 'none';
+            sessionStorage.setItem('confirmationButtonClicked', 'true');
             this.displayUserInfo();
         });
     }
@@ -63,18 +81,22 @@ class UserForm {
     }
 
     displayUserInfo() { // Dans le user-info on remplit le nom et le prénom avec la valeur de l'input
+        
         const nom = this.nomInput.value;
         const prenom = this.prenomInput.value;
+
         this.nomDisplay.textContent = nom;
         this.prenomDisplay.textContent = prenom;
         //On enregistre dans localStorage avec la méthode setItem()
+
         localStorage.setItem("nom", nom);
         localStorage.setItem("prenom", prenom);
     }
 }
 //Crée nouvelle instance de classe
 const userForm = new UserForm(); 
-// EventListener sur le bouton_annuler  avec une fonction fléchée qui reload la page quand on clique.
+// EventListener sur le bouton_annuler  avec une fonction fléchée qui reload la page quand on clique et efface les données de sessionStorage.
 document.getElementById('bouton_annuler').addEventListener('click', (e)=> {
+    sessionStorage.clear();
     location.reload();
 });

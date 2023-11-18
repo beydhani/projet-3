@@ -105,8 +105,8 @@ class DrawingCanvas {
     }
     //La méthode pour activer le bouton de confirmation
     toggleConfirmButton() {
-        //Si le compteur est à 3 ou plus on disable plus le bouton, il devient cliquable.
-        if (this.confirmationDrawing >= 3) {
+        //Si le compteur est à 4 ou plus on disable plus le bouton, il devient cliquable.
+        if (this.confirmationDrawing >= 4) {
             this.confirmButton.disabled = false;
         }
     }

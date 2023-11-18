@@ -8,6 +8,8 @@ class MapApp {
 		this.initMap(); // Méthode pour créer la carte
 		this.customIcons(); //Méthode pour nos icones
 		this.fetchData(); // Méthode pour récupérer la data de l'API JCDECEAUX
+        MapApp.selectStation(); //On appelle notre méthode statique selectStation
+        let sessionStorageExists = false; //Un booléen pour voir si sessionStorage existe
 	}
 	initMap() { // Méthode pour créer la carte
         this.map = L.map('map').setView([47.2184, -1.5536], 13); // Créer une nouvelle carte avec l'id map et la centrer sur les coordonnées de Nantes
@@ -82,8 +84,10 @@ class MapApp {
         let buttonOrMessage; // Variable bouton ou message en fonction de la condition ci-dessous
         if (station.totalStands.availabilities.bikes === 0 ||station.status === "CLOSED") { //Boucle if pour afficher un bouton ou un message selon paramètres
             buttonOrMessage = '<p>Aucun vélo disponible. Impossible de réserver.</p>';
-        } else { //J'ai stocké les infos de la station directement dans le bouton et j'ai mis la fonction replace pour remplacer les quotes par un autre type de quotes
+        } else { 
+            //J'ai stocké les infos de la station directement dans le bouton et j'ai mis la fonction replace pour remplacer les quotes par un autre type de quotes
             // J'ai utilisé stingify() pour convertir l'objet station en sting JSON pour pouvoir le stocker
+            // J'ai ajouté un onclick pour appeler selectStation() ici
             buttonOrMessage = `<button id="bouton_selectionner" class="btn-select" data-station='${JSON.stringify(station).replace(/'/g, '&rsquo;')}' onclick="MapApp.selectStation(this)">Sélectionner</button>`;
         }
         // Ca c'est la structure de notre popup, son contenu
@@ -100,30 +104,54 @@ class MapApp {
         // On associe chaque popup au marqueur avec la méthode bindPopup de leaflet
         marker.bindPopup(popupContent);
     }
-    static selectStation(buttonElement) { 
-    // Méthode statique pour afficher les infos dans le formulaire et la div d'infos et faire apparaitre le formulaire
-        // J'utilise parse pour reconvertir mon sting en objet et pouvoir l'utiliser
-        const station = JSON.parse(buttonElement.getAttribute('data-station'));
-        //Je stocke les données dans sessionStorage 
+    // Fonction statique pour enregister les infos de station sur la map dans session storage et les afficher où on veut et les conserver
+    // Même quand on recharge la page
+static selectStation(buttonElement = null) { 
+    // Variable station
+    let station;
+    // Si un bouton est fourni, j'utilise ses données pour définir la 'station' et stocker ses éléments dans sessionStorage
+    if (buttonElement) {
+        station = JSON.parse(buttonElement.getAttribute('data-station')); //Je convertis mon JSON string en objet que je stocke dans station
+        // Je stocke les différents éléments dans session storage
         sessionStorage.setItem('nomStation', station.name);
         sessionStorage.setItem('adresseStation', station.address);
         sessionStorage.setItem('nbVelosDispo', station.totalStands.availabilities.bikes);
         sessionStorage.setItem('nbPlacesDispo', station.totalStands.availabilities.stands);
-        //Je remplis les différents éléments avec les propriétés qui m'intéressent
-        document.getElementById("nom_station").textContent = sessionStorage.getItem('nomStation');
-        document.getElementById("nom_station2").textContent = sessionStorage.getItem('nomStation');
-        document.getElementById("adresse_station").textContent = sessionStorage.getItem('adresseStation');
-        document.getElementById("adresse_station2").textContent = sessionStorage.getItem('adresseStation');
-        document.getElementById("nb_velos_dispo").textContent = sessionStorage.getItem('nbVelosDispo');
-        document.getElementById("nb_velos_dispo2").textContent = sessionStorage.getItem('nbVelosDispo');
-        document.getElementById("nb_places_dispo").textContent = sessionStorage.getItem('nbPlacesDispo');
-        document.getElementById("nb_places_dispo2").textContent = sessionStorage.getItem('nbPlacesDispo');
-        //Pour afficher le formulaire et cacher le message par défaut
+    } 
+    // Sinon si aucune donnée n'est fournie mais que des données sont déjà stockées dans session storage:
+    else if (sessionStorage.getItem('nomStation')) {
+        // Je les utilise pour remplir les informations
+        station = {
+            name: sessionStorage.getItem('nomStation'),
+            address: sessionStorage.getItem('adresseStation'),
+            totalStands: {
+                availabilities: {
+                    bikes: sessionStorage.getItem('nbVelosDispo'),
+                    stands: sessionStorage.getItem('nbPlacesDispo')
+                }
+            }
+        };
+    }
+
+    // Je met à jour les éléments d'affichage
+    if (station && station.name) {
+        document.getElementById("nom_station").textContent = station.name;
+        document.getElementById("nom_station2").textContent = station.name;
+        document.getElementById("adresse_station").textContent = station.address;
+        document.getElementById("adresse_station2").textContent = station.address;
+        document.getElementById("nb_velos_dispo").textContent = station.totalStands.availabilities.bikes;
+        document.getElementById("nb_velos_dispo2").textContent = station.totalStands.availabilities.bikes;
+        document.getElementById("nb_places_dispo").textContent = station.totalStands.availabilities.stands;
+        document.getElementById("nb_places_dispo2").textContent = station.totalStands.availabilities.stands;
+        // Je change le css pour afficher mon formulaire et cacher mon message par défaut.
         var form = document.getElementById('reservation-form');
         var messageSelect = document.getElementById('message-select');
         form.style.display = 'flex';
         messageSelect.style.display = 'none';
     }
+}
+
+
 }
 //Je crée une nouvelle instance de classe quand le document à été chargé complétement.
 document.addEventListener("DOMContentLoaded", () => {
